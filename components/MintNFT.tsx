@@ -1,5 +1,7 @@
-import { styled, keyframes } from '../stitches.config';
+import { useEffect, useRef } from 'react';
+import { Howl } from 'howler';
 
+import { styled, keyframes } from '../stitches.config';
 import VaderSvg from '../assets/vader.svg';
 import OpenSeaSvg from '../assets/open-sea.svg';
 import { useStore } from '../stores/nft';
@@ -42,7 +44,7 @@ const Button = styled('button', {
   textDecoration: 'none',
 
   [`&.is-minting ${VaderIcon}`]: {
-    animation: `${blink} 1s infinite`,
+    animation: `${blink} 2.5s infinite`,
   },
 
   '&:hover': {
@@ -81,6 +83,23 @@ export default function MintNFT() {
   const mint = useStore((state) => state.mint);
   const tokenId = useStore((state) => state.tokenId);
   const minting = useStore((state) => state.minting);
+  const sound = useRef(null);
+
+  useEffect(() => {
+    sound.current = new Howl({
+      src: ['/vader.mp3'],
+      loop: true,
+      volume: 0.5,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (minting) {
+      sound.current?.play();
+    } else {
+      sound.current?.stop();
+    }
+  }, [minting]);
 
   return (
     <Root>
