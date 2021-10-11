@@ -73,25 +73,13 @@ contract BeachVader is ERC721URIStorage {
   }
 
   function buildSvg(uint256 tokenId) internal view returns (string memory) {
+    string memory first = pickRandomPhrase(tokenId, "FIRST_PHRASE");
+    string memory second = pickRandomPhrase(tokenId, "SECOND_PHRASE");
+    string memory third = pickRandomPhrase(tokenId, "THIRD_PHRASE");
+
     string memory svgStart = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><rect width="100%" height="100%" fill="black" /><foreignObject x="20" y="20" width="310" height="200"><div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%; overflow: hidden; color: white; font-family: sans-serif; line-height: 1.5"><p>';
     string memory svgEnd = '</p></div></foreignObject><path d="M167.866 329.254L168.6 321.186V317.186C168.6 315.586 169.4 315.586 171.8 315.586C173.013 315.754 174.138 316.316 175 317.186C175.862 316.316 176.987 315.754 178.2 315.586C180.6 315.586 181.4 315.586 181.4 317.186V321.186L182.134 329.259C182.152 329.457 182.243 329.642 182.391 329.777C182.538 329.912 182.731 329.986 182.931 329.986H183.8C184.649 329.986 185.463 329.649 186.063 329.049C186.663 328.449 187 327.635 187 326.786V326.786L183.8 315.586C183.8 310.197 180.836 306.289 175.621 306.003C174.384 305.971 173.153 306.19 172.003 306.645C170.852 307.101 169.805 307.784 168.926 308.654C168.046 309.524 167.351 310.563 166.882 311.708C166.414 312.854 166.182 314.082 166.2 315.319L163 326.781C163 327.629 163.337 328.443 163.937 329.043C164.537 329.644 165.351 329.981 166.2 329.981H167.069C167.269 329.981 167.461 329.907 167.609 329.772C167.756 329.638 167.848 329.453 167.866 329.254V329.254Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/><path d="M181.4 320.382H179C177.4 320.382 175 320.382 175 317.182C175 320.382 172.6 320.382 171 320.382H168.6" stroke="white" stroke-linecap="round" stroke-linejoin="round"/><path d="M168.416 323.213L171 328.382H179L181.585 323.213" stroke="white" stroke-linecap="round" stroke-linejoin="round"/><path d="M177.473 306.273L176.6 312.382H173.4L172.545 306.396" stroke="white" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    string memory phrase = buildPhrase(tokenId);
-    console.log("Phrase: %s", phrase);
-    return string(abi.encodePacked(svgStart, phrase, svgEnd));
-  }
-
-  function buildPhrase(uint256 tokenId) internal view returns (string memory) {
-    string[] memory tempPhrases = phrases;
-
-    for (uint256 i = 0; i < tempPhrases.length; i++) {
-        uint256 n = i + uint256(keccak256(abi.encodePacked(Strings.toString(tokenId), block.timestamp))) % (tempPhrases.length - i);
-        string memory temp = tempPhrases[n];
-        tempPhrases[n] = tempPhrases[i];
-        tempPhrases[i] = temp;
-    }
-
-    return string(abi.encodePacked(tempPhrases[2], " ", tempPhrases[4], " ", tempPhrases[6]));
-
+    return string(abi.encodePacked(svgStart, first, " ", second, " ", third, svgEnd));
   }
 
   function pickRandomPhrase(uint256 tokenId, string memory salt) public view returns (string memory) {
