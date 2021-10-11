@@ -35,8 +35,8 @@ const globalStyles = globalCss({
   body: {
     color: '$white',
     background:
-      'radial-gradient(39% 58% at 94% 6%, $green15 0%, $green00 68%), radial-gradient(44% 44% at 64% 10%, $orange15 0%, $white00 82%), linear-gradient(222deg, $orange05 10%, $white00 60%), $black',
-    backgroundAttachment: 'fixed',
+      'radial-gradient(39% 58% at 94% 6%, $lightOrange15 0%, $lightOrange00 68%), radial-gradient(44% 44% at 64% 10%, $orange15 0%, $white00 82%), linear-gradient(222deg, $orange05 10%, $white00 60%), linear-gradient(200deg, rgba(0, 0, 0, .8), rgba(0, 0, 0, .8) 40%, rgba(0, 0, 0, 0.1)), url("/vader.jpg"), $black',
+    backgroundSize: 'cover',
     fontFamily: '$sans',
     margin: 0,
     padding: 0,
