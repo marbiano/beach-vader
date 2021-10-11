@@ -51,7 +51,7 @@ const globalStyles = globalCss({
 const meta = {
   title: 'Beach Vader',
   description: 'Darth Vader’s generated phrases as NFTs.',
-  image: 'https://vader.marbiano.com/og_image.png',
+  image: 'https://vader.marbiano.com/banner.png',
 };
 
 export default function MyApp({ Component, pageProps }) {
